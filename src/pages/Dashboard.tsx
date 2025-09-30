@@ -4,6 +4,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { GraduationCap, Building2, Users, BookOpen } from "lucide-react";
 import StudentPortal from "@/components/StudentPortal";
+import IndustryPortal from "@/components/IndustryPortal";
+import FacultyPortal from "@/components/FacultyPortal";
 
 export default function Dashboard() {
   const [userRole, setUserRole] = useState<"student" | "industry" | "faculty" | null>(null);
@@ -98,24 +100,13 @@ export default function Dashboard() {
     return <StudentPortal onBack={() => setUserRole(null)} />;
   }
 
-  return (
-    <div className="min-h-screen bg-background">
-      <div className="container mx-auto p-4">
-        <div className="flex justify-between items-center mb-6">
-          <h1 className="text-2xl font-bold capitalize">{userRole} Dashboard</h1>
-          <Button variant="outline" onClick={() => setUserRole(null)}>
-            Switch Portal
-          </Button>
-        </div>
-        
-        <div className="text-center py-20">
-          <BookOpen className="w-16 h-16 text-primary mx-auto mb-4" />
-          <h2 className="text-xl font-semibold mb-2">Portal Coming Soon</h2>
-          <p className="text-muted-foreground">
-            The {userRole} portal is being developed with advanced features
-          </p>
-        </div>
-      </div>
-    </div>
-  );
+  if (userRole === "industry") {
+    return <IndustryPortal onBack={() => setUserRole(null)} />;
+  }
+
+  if (userRole === "faculty") {
+    return <FacultyPortal onBack={() => setUserRole(null)} />;
+  }
+
+  return null;
 }
